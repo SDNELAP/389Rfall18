@@ -32,4 +32,3 @@ Digital acknowledgement of honor pledge: *Sthitadheesh Nelapatla*
 ### Part 2 (55 pts)
 
 *I ran nmap 142.93.117.193 -p- and found a list of open ports. I then found the port of interest to be 1337 after trying to nc into each of the ports outputted by the nmap. Using OSINT, I determined his username to be kruegster and used his interest in Pokemon Go reflected on his Twitter account to guess pokemon as the password and unexpectedly got in on the first try.  Changed directory to home/flightrecords and opened 27999 record and found CMSC389R-{c0rn3rstone-air-27999}*
-
