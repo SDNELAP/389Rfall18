@@ -27,26 +27,26 @@ and
 void strncpy(char *dst, char *src, int len)
 ```
 
-which is the length of the string in both parts into the counter parameter. I then followed by moving the other two parameters into permanent registers in the lines 
+which is the length of the string in both parts into the counter parameter. I then followed by moving the first parameter into permanent registers in the line 
 
 ```
 mov rbx, rdi  
-mov r12, rsi
 ```
 
-to ensure that they are stored after function execution because the purpose of the function is for those parameters passed in to be used after function execution is over. This assumption based on my experience with the C language. The next command moves the number 0 into the impermanent r8 register to use as an for the address of the string pointer that needs to be modified. 
+to ensure that it is stored after function execution because the purpose of the function is for the parameter passed in passed in to be used after function execution is over. This assumption based on my experience with the C language. The next command moves the number 0 into the impermanent r8 register to use as an for the address of the string pointer that needs to be modified. 
 
-From that point, the next line is the only line that differs between part 1 and part 2. For the first part, the logic is that we need to move the provided character parameter into each character of the string so beginning at the pointer address provided at a parameter, we loop an instruction to increment the r8 register from 0 and dereference the address beginning at the initial pointer and incrementing r8 addresses to it and assigning to the character value provided through the following command: 
+From that point, the next few lines are the only lines that differ between part 1 and part 2. For the first part, the logic is that we need to move the provided character parameter into each character of the string so beginning at the pointer address provided at a parameter, we loop an instruction to increment the r8 register from 0 and dereference the address beginning at the initial pointer and incrementing r8 addresses to it and assigning to the character value provided through the following command: 
 
-```str_loop: mov [rbx + r8], r12 ``` which is equivalent to the C command is 
+```str_loop: mov byte [rbx + r8], sil ``` which is equivalent to the C command is 
 
 ```*(str + i) = val)``` 
-where i is the increment value added onto the address str. The second part of the assignment which requires us to copy one string to another is achieved by moving the contents of the src pointer incremented by a certain quantity less than the length of the string by to the dest pointer incremented by the same increment through the following command: 
+where i is the increment value added onto the address str. Initially, I copied the second parameter into permanent register also but then realized that it would be efficent to use the 1 byte resgister representing rsi which is sil. The second part of the assignment which requires us to copy one string to another is achieved by moving the contents of the src pointer incremented by a certain quantity less than the length of the string by to the dest pointer incremented by the same increment through the following commands: 
 
-```str_loop: mov [rbx + r8], [r12 + r8];``` 
+```str_cpy_loop: mov bl, byte [r12 + r8];copy value at source pointer into temp variable
+    mov byte [rbx + r8], bl;copy temp variable into destination pointers address``` 
 which is equivalent to the C command 
 ```*(dst + i) = *(src + i)``` 
-where i is the increment value added onto the addresses dst and src. After this point the only commands that remain are 
+where i is the increment value added onto the addresses dst and src. I had to use a single byte register bl as the temporary register to transfer each character from one string to another. After this point the only commands that remain are 
 
 ```
 add r8, 1     ; increment counter

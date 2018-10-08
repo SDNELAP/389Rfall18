@@ -7,11 +7,10 @@ my_memset:
 
         mov rcx, rdx  ;moves string length parameter into counter register
         mov rbx, rdi  ;moves string pointer into permanent register
-        mov r12, rsi  ;moves char val into permanent register
         mov r8, 0     ;set pointer offset increment to 0 
 
 str_loop: 
-        mov [rbx + r8], r12; copy char val into relevant pointer addresses(pointer + increment)  
+        mov byte [rbx + r8], sil; copy char val into relevant pointer addresses(pointer + increment)
         add r8, 1     ; increment counter
         loop str_loop ; loop this process
 
@@ -34,10 +33,11 @@ my_strncpy:
         mov r12, rsi  ;moves source pointer into permanent register
         mov r8, 0     ;set pointer offset increment to 0 
 
-str_loop: 
-        mov [rbx + r8], [r12 + r8]; copy value at source pointer's address into destination pointers address
+str_cpy_loop:
+        mov bl, byte [r12 + r8];copy value at source pointer into temp variable
+        mov byte [rbx + r8], bl;copy temp variable into destination pointers address
         add r8, 1     ; increment counter
-        loop str_loop ; loop this process
+        loop str_cpy_loop ; loop this process
 
 
         leave         ;moves down the stack pointer to the current base pointer,
