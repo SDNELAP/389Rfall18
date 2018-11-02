@@ -74,32 +74,30 @@ while(index < len(data)):
     start = offset
     end = offset + sec_len
 
-    print("Section Type:%d Section Length:%d\n" % (sec_type, sec_len))
-
     print("Section %d"%(count))
-    if sec_type == 0x1:
+    if sec_type == 1:
         print("PNG")
         process_png(start,end,("output"+str(count)))
-    elif sec_type == 0x2:
+    elif sec_type == 2:
         print("DWORDS")
         process_word_sections(start,end,8)
-    elif sec_type == 0x3:
+    elif sec_type == 3:
         print("UTF8")
         print(struct.unpack(str(sec_len) + "s", data[start:end]))
-    elif sec_type == 0x4:
+    elif sec_type == 4:
         print("DOUBLES")
         print(struct.unpack(str(sec_len)+"s", data[start:end]))
-    elif sec_type == 0x5:
+    elif sec_type == 5:
         print("WORDS")
         process_word_sections(start,end,4)
-    elif sec_type == 0x6:
+    elif sec_type == 6:
         print("COORD")
         lat,lon = struct.unpack("<dd", data[start:end])
         print("lat: %s long: %s" %(str(lat), str(lon)))
-    elif sec_type == 0x7:
+    elif sec_type == 7:
         print("REFERENCE")
         print("%d" %(struct.unpack("<L", data[start:end])))
-    elif sec_type == 0x9:
+    elif sec_type == 9:
         print("ASCII")
         print(data[start:end])
     else:
