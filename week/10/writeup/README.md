@@ -18,6 +18,6 @@ With step 2 of part 1, the process of constructing the padding was initially ver
 
 ### Part 2 (30 Pts)
 
-Referring to the slides, I noticed that gpg command line tool is useful in generating public key private key pairs. By following the link on the slide, 
+Referring to the slides, I noticed that gpg command line tool is useful in generating public key private key pairs. By using the command ```gpg --gen-key``` in the slide, I was able to enter my information and generate a new key. From there, I ran ``` gpg --import pgpassignment.key ``` which imported the key and showed me that the owner of this key was UMD Cybersecurity Club. I then used the ```gpg -e -u "Sthitadheesh Nelapatla" -r "UMD Cybersecurity Club" message.txt``` and created a file called message.txt which had the following text: Om Namo Narayanaya. This created a messages.txt.gpg file and I renamed that file as messages.private and moved it to the writeup folder. 
 
 
